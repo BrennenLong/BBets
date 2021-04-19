@@ -95,7 +95,33 @@ A class size of 28 or 29 seems to be a fair bet.
 
 # In the class and payoff as described what is a 95% confidence interval for Brownlow's earnings?
   
-<!--Explain and display your method of coming up with a 95% confidence interval of  professor Brownlows winnings (or losings)-->
+```{r}
+birthdays=1:365
+saveanswer=vector("numeric")
+for(j in 1:1000){
+savebank=0
+for(i in 1:637){
+classsample<-sample(birthdays,35,replace=TRUE)
+d<-duplicated(classsample)
+# If we add up d and get a number greater than zero, then we had responses with the same birthday.
+if(sum(d)>0){
+  savebank=savebank+1
+}else{
+  savebank=savebank-2
+}
+}
+saveanswer[j]<-savebank
+}
+```
+
+```{r}
+hist(saveanswer, main="Brownlow Winnings,\n 2:1 Ratio, Class Size =35", xlab="winnings(US$)")
+ssanswer<-sort(saveanswer)
+print(ssanswer[25])
+print(ssanswer[975])
+```
+
+The 95% confidence interval is between `r ssanswer[25]` and `r ssanswer[975]`.
 
 
 # Discussion and Conclusion
